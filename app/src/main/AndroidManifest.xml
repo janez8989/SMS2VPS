@@ -49,7 +49,7 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-1129549529502330~6160610162" />
+            android:value="XXXXXXXXX" />
 
 
         <!-- Määritetään, että tämä on oletustekstiviestisovellus -->
