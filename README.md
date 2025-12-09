@@ -24,12 +24,12 @@ SEND_SMS, RECEIVE_SMS, READ_SMS, RECEIVE_MMS, WRITE_SMS, POST_NOTIFICATIONS
 The App also requires the following permissions to provide reliable background operations and network connectivity:
 
 FOREGROUND_SERVICE & FOREGROUND_SERVICE_DATA_SYNC â€“ The app uses a foreground service to securely synchronize user messages with the user-defined VPS (Virtual Private Server) in real time, even when the app is minimized. To enable this feature, the user must manually configure VPS connection details in the VPS Settings view and activate synchronization by pressing the Activate SMS Sync button. This ensures reliable message delivery, data consistency, and full user control over synchronization behavior through a visible foreground notification.
-INTERNET â€“ Allows the App to send and receive data over the Internet. Internet access is essential for the Appâ€™s core functionality.
+INTERNET â€“ Allows the App to send and receive data over the Internet. Internet access is essential for the App's core functionality.
 ACCESS_NETWORK_STATE â€“ Allows the App to check network availability and type (Wi-Fi/mobile data).
 Other permissions:
 
-Google account access â€“ required only if you enable forwarding to Gmail or saving to Google Drive. You will be asked to sign in and grant the necessary scopes for sending to Gmail and writing files to Drive.
-READ_CONTACTS â€“ required only if you want to view your phone's saved contacts when sending messages through the App. To access contacts in the Select a Contact view, you need to grant permission by turning on the toggle switch in that view.
+Google account access: required only if you enable forwarding to Gmail or saving to Google Drive. You will be asked to sign in and grant the necessary scopes for sending to Gmail and writing files to Drive.
+READ_CONTACTS: required only if you want to view your phone's saved contacts when sending messages through the App. To access contacts in the Select a Contact view, you need to grant permission by turning on the toggle switch in that view.
 Transparency: The App presents these explanations before any permission prompts. You can revoke permissions at any time in your device settings; doing so will disable the related features.
 
 5. Data Handling & Privacy
