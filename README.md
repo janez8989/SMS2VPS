@@ -1,3 +1,5 @@
+Latest version 1.0.12
+
 Terms of Use and this Privacy Policy
 
 1. Introduction
