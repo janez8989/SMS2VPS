@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="PopupMenuStyle" parent="Widget.MaterialComponents.PopupMenu">
+        <item name="android:background">@drawable/popup_menu_background</item>
+        <item name="android:itemBackground">@drawable/popup_menu_item_background</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:popupMenuStyle">@style/PopupMenuStyle</item>
+        <item name="android:dropDownListViewStyle">@style/PopupMenuListView</item>
+        <item name="android:colorControlNormal">#FFFFFF</item>
+        <item name="android:tint">#FFFFFF</item>
+        <item name="android:textColorSecondary">#FFFFFF</item>
+        <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="android:colorBackground">@color/colorPrimary</item>
+        <item name="android:popupElevation">8dp</item>
+        <item name="android:popupBackground">@color/colorPrimary</item>
+        <item name="android:itemTextAppearance">@style/PopupMenuTextStyle</item>
+    </style>
+
+    <style name="PopupMenuTextStyle" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:drawableTint">#FFFFFF</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:stateListAnimator">@null</item>
+    </style>
+
+    <style name="PopupMenuListView" parent="Widget.AppCompat.ListView.DropDown">
+        <item name="android:divider">@drawable/popup_menu_divider</item>
+        <item name="android:dividerHeight">1dp</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:listSelector">@color/google_blue_dark</item>
+        <item name="android:cacheColorHint">@color/colorPrimary</item>
+        <item name="android:scrollbars">none</item>
+    </style>
+
+    <style name="SelectedFontSizeItem" parent="PopupMenuTextStyle">
+        <item name="android:background">@color/google_blue_dark</item>
+    </style>
+    
+    <style name="PopupAnimation">
+    <item name="android:windowEnterAnimation">@anim/popup_enter</item>
+    <item name="android:windowExitAnimation">@anim/popup_exit</item>
+    </style>    
+
+    <!-- Lisätty AlertDialog-tyyli FAB-valikkoa varten -->
+    <style name="AlertDialogStyle" parent="Theme.MaterialComponents.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/popup_menu_background</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColorPrimary">#FFFFFF</item>
+        <item name="android:textColorSecondary">#FFFFFF</item>
+        <item name="android:colorControlNormal">#FFFFFF</item>
+        <item name="android:colorControlActivated">@color/google_blue_dark</item>
+        <item name="android:colorControlHighlight">@color/google_blue_dark</item>
+        <item name="buttonBarButtonStyle">@style/AlertDialogButton</item>
+        <item name="android:listChoiceIndicatorSingle">@null</item>
+        <item name="android:divider">@drawable/popup_menu_divider</item>
+        <item name="android:dividerHeight">1dp</item>
+        <item name="android:windowMinWidthMajor">60%</item>
+        <item name="android:windowMinWidthMinor">80%</item>
+    </style>
+
+    <!-- AlertDialog-painikkeiden tyyli -->
+    <style name="AlertDialogButton" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="rippleColor">@color/google_blue_dark</item>
+    </style>
+
+    <!-- AlertDialog-otsikon tyyli -->
+    <style name="AlertDialogTitle" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <!-- AlertDialog-listan elementtien tyyli -->
+    <style name="AlertDialogListItem" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingEnd">24dp</item>
+        <item name="android:background">@drawable/alert_dialog_item_selector</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <!-- Uusi drawable-selector valintojen korostukseen -->
+    <!-- Tämä tarvitsee alert_dialog_item_selector.xml -tiedoston drawable-kansioon -->
+</resources>

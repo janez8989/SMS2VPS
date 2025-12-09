@@ -1,0 +1,29 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Base Gmail Logo -->
+    <group android:scaleX="0.9" android:scaleY="0.9" android:pivotX="12" android:pivotY="12">
+        <path
+            android:fillColor="#E0E0E0"
+            android:pathData="M2,6v12h20V6H2z M20,8l-8,5 -8,-5V7h16V8z"/>
+        <path
+            android:fillColor="#DB4437"
+            android:pathData="M20,6l-8,5 -8,-5h16z"/>
+    </group>
+
+    <!-- Success Status Icon (Green circle with check) -->
+    <group android:translateX="15" android:translateY="15">
+        <path
+            android:fillColor="#4CAF50"
+            android:pathData="M4.5,0 A4.5,4.5 0 1,1 4.5,9 A4.5,4.5 0 1,1 4.5,0 Z"/>
+        <path
+            android:strokeColor="#FFFFFF"
+            android:strokeWidth="1.2"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"
+            android:pathData="M2.5,4.5 l2,2 3,-3"/>
+    </group>
+</vector>

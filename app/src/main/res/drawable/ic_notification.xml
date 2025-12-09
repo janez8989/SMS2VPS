@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Taustakappale -->
+    <path
+        android:fillColor="#2196F3"
+        android:pathData="M12,2C6.5,2 2,6.5 2,12s4.5,10 10,10 10-4.5 10-10S17.5,2 12,2z" />
+
+    <!-- Merkintä -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M12,17c-1.1,0 -2,-0.9 -2,-2s0.9,-2 2,-2 2,0.9 2,2 -0.9,2 -2,2z" />
+
+    <!-- Viesti-merkintä -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M12,8c-1.1,0 -2,-0.9 -2,-2s0.9,-2 2,-2 2,0.9 2,2 -0.9,2 -2,2z" />
+
+</vector>

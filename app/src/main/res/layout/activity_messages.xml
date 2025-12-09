@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/messageInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="16dp"
+        android:hint="Type a message"
+        android:inputType="textMultiLine"
+        android:maxLines="4"
+        android:minHeight="48dp"
+        android:padding="12dp" />
+
+    <ImageButton
+        android:id="@+id/sendButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_send"
+        android:contentDescription="@string/send_message" />
+
+</RelativeLayout>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:subtitleTextColor="@color/backgroundColor"
+            app:titleTextColor="@color/backgroundColor" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/conversationsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <TextView
+        android:id="@+id/no_conversations_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_conversations"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_anchor="@id/conversationsRecyclerView"
+        app:layout_anchorGravity="center" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/newConversationFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="80dp"
+        android:src="@drawable/ic_new_conversation"
+        android:contentDescription="@string/new_conversation" />
+
+    <TextView
+        android:id="@+id/latestSmsDisplay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:textSize="18sp"
+        android:layout_gravity="bottom"
+        android:visibility="gone"
+        android:clickable="false"
+        android:focusable="false" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        android:clickable="false"
+        android:focusable="false">
+
+        <ImageView
+            android:id="@+id/vps_error_icon_main"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_cloud_upload_error"
+            android:contentDescription="@string/vps_error"
+            android:visibility="gone"
+            android:clickable="false"
+            android:focusable="false" />
+
+        <ImageView
+            android:id="@+id/vps_progress_icon_main"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_cloud_upload_progress"
+            android:contentDescription="@string/vps_progress"
+            android:visibility="gone"
+            android:clickable="false"
+            android:focusable="false" />
+
+        <ImageView
+            android:id="@+id/vps_success_icon_main"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_cloud_upload_success"
+            android:contentDescription="@string/vps_success"
+            android:visibility="gone"
+            android:clickable="false"
+            android:focusable="false" />
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

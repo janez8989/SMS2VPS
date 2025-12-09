@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.sms2vps.app">
+
+    <!-- Viestien luvat -->
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_MMS"/>
+    <uses-permission android:name="android.permission.WRITE_SMS" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <!-- Varmistetaan, että ominaisuus ei ole ehdoton -->
+    <uses-feature android:name="android.hardware.telephony" android:required="false" />
+
+    <!-- Lisätään <queries> tukemaan requestDefaultSmsApp()-metodia -->
+    <queries>
+        <intent>
+            <action android:name="android.provider.Telephony.ACTION_CHANGE_DEFAULT"/>
+        </intent>
+    </queries>
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.SMS2VPS"
+        tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        
+        <!-- GOOGLE SIGN-IN CLIENT ID (LISÄTTY) -->
+        <meta-data
+            android:name="com.google.android.gms.auth.api.signin.client_id"
+            android:value="@string/google_client_id" />
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-1129549529502330~6160610162" />
+
+
+        <!-- Määritetään, että tämä on oletustekstiviestisovellus -->
+        <receiver android:name=".SmsReceiver"
+            android:permission="android.permission.BROADCAST_SMS"
+            android:exported="true">
+            <intent-filter android:priority="999">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+                <action android:name="android.provider.Telephony.SMS_DELIVER" />
+            </intent-filter>
+        </receiver>
+
+        <!-- MMS-tuki, vaaditaan oletustekstiviestisovelluksilta -->
+        <receiver android:name=".MmsReceiver"
+            android:permission="android.permission.BROADCAST_WAP_PUSH"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.WAP_PUSH_DELIVER" />
+                <data android:mimeType="application/vnd.wap.mms-message" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Tarkkailee oletusviestin vaihdoksia -->
+        <receiver android:name=".DefaultSmsChangedReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_DEFAULT_PACKAGE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Aktiviteetit -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SENDTO" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="sms" />
+                <data android:scheme="smsto" />
+                <data android:scheme="mms" />
+                <data android:scheme="mmsto" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="sms" />
+                <data android:scheme="smsto" />
+                <data android:scheme="mms" />
+                <data android:scheme="mmsto" />
+            </intent-filter>
+        </activity>
+
+        <!-- ComposeSmsActivity tekstiviestien lähettämiseen -->
+        <activity android:name=".ComposeSmsActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <action android:name="android.intent.action.SENDTO" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="sms" />
+                <data android:scheme="smsto" />
+                <data android:scheme="mms" />
+                <data android:scheme="mmsto" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".SettingsActivity" android:exported="true" />
+        <activity android:name=".ConversationActivity" android:exported="true" android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".NewConversationActivity" android:exported="true" />
+        <activity android:name=".GoogleSettingsActivity" android:exported="true" />
+
+        <service
+            android:name=".SmsSynchronizationService"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="android.permission.FOREGROUND_SERVICE_DATA_SYNC"
+            android:foregroundServiceType="dataSync"
+            tools:ignore="ForegroundServiceTypePermission" />
+
+        <service android:name=".HeadlessSmsSendService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.SEND_RESPOND_VIA_MESSAGE">
+            <intent-filter>
+                <action android:name="android.intent.action.RESPOND_VIA_MESSAGE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="sms" />
+                <data android:scheme="smsto" />
+                <data android:scheme="mms" />
+                <data android:scheme="mmsto" />
+            </intent-filter>
+        </service>
+        <activity
+            android:name=".VPSStorageActivity"
+            android:label="VPS Storage"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".TermsActivity"
+            android:label="Terms of Use"
+            android:parentActivityName=".MainActivity" />
+    </application>
+</manifest>

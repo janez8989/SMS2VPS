@@ -1,0 +1,31 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Official Google Drive Logo -->
+    <group android:scaleX="0.8" android:scaleY="0.8" android:pivotX="12" android:pivotY="12">
+        <path
+            android:fillColor="#009D58"
+            android:pathData="M8.3,17.5l-3.8-6.6h7.5l3.8,6.6z"/>
+        <path
+            android:fillColor="#FFC107"
+            android:pathData="M12,4l3.8,6.6h-7.5z"/>
+        <path
+            android:fillColor="#4285F4"
+            android:pathData="M15.8,17.5l-3.8-6.6h7.5z"/>
+    </group>
+
+    <!-- Failure Status Icon (X) -->
+    <group android:translateX="12" android:translateY="12">
+        <path
+            android:fillColor="#F44336"
+            android:pathData="M4.5,0 A4.5,4.5 0 1,1 4.5,9 A4.5,4.5 0 1,1 4.5,0 Z"/>
+        <path
+            android:strokeColor="#FFFFFF"
+            android:strokeWidth="1.2"
+            android:strokeLineCap="round"
+            android:pathData="M3,3 l3,3 M3,6 l3,-3"/>
+    </group>
+</vector>

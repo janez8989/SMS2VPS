@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_vps_settings"
+        android:title="VPS Settings" />
+    <item
+        android:id="@+id/action_set_default"
+        android:title="Set as default app" />
+    <item
+        android:id="@+id/action_font_size"
+        android:title="Font Size">
+        <menu>
+            <item
+                android:id="@+id/font_size_small"
+                android:title="Small" />
+            <item
+                android:id="@+id/font_size_medium"
+                android:title="Medium" />
+            <item
+                android:id="@+id/font_size_large"
+                android:title="Large" />
+        </menu>
+    </item>
+</menu>

@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:titleTextColor="@android:color/white"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="@string/vps_ip_address"
+                app:hintTextColor="?attr/colorPrimary"
+                android:textColorHint="?attr/colorPrimary"
+                app:boxStrokeColor="?attr/colorPrimary"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/vpsIpAddressEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textColor="?android:attr/textColorPrimary"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="@string/vps_username"
+                app:hintTextColor="?attr/colorPrimary"
+                android:textColorHint="?attr/colorPrimary"
+                app:boxStrokeColor="?attr/colorPrimary"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/vpsUsernameEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textColor="?android:attr/textColorPrimary"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="@string/vps_storage_path"
+                app:hintTextColor="?attr/colorPrimary"
+                android:textColorHint="?attr/colorPrimary"
+                app:boxStrokeColor="?attr/colorPrimary"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/vpsStoragePathEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:text="/root/sms"
+                    android:textColor="?android:attr/textColorPrimary"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="@string/vps_password"
+                app:hintTextColor="?attr/colorPrimary"
+                android:textColorHint="?attr/colorPrimary"
+                app:boxStrokeColor="?attr/colorPrimary"
+                app:passwordToggleEnabled="true"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/vpsPasswordEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:textColor="?android:attr/textColorPrimary"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/vps_port"
+                    app:hintTextColor="?attr/colorPrimary"
+                    android:textColorHint="?attr/colorPrimary"
+                    app:boxStrokeColor="?attr/colorPrimary"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/vpsPortEdit"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:text="22"
+                        android:textColor="?android:attr/textColorPrimary"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/sshStatusText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:textColor="?android:attr/textColorPrimary"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp">
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/enableSyncSwitch"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/enable_sync"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="16sp"/>
+
+                <Button 
+                    android:id="@+id/saveButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/save"
+                    android:textColor="@android:color/white"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:layout_marginStart="8dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="16dp">
+
+                <TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/connection_status"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:layout_marginEnd="8dp"/>
+
+                <View 
+                    android:id="@+id/connectionStatusIndicator"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:background="@drawable/circle_background"
+                    android:layout_marginEnd="8dp"/>
+
+                <TextView
+                    android:id="@+id/pingResultText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:textColor="?android:attr/textColorPrimary" />
+
+                <Button
+                    android:id="@+id/pingButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ping"
+                    android:textColor="@android:color/white"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:minWidth="@dimen/save_button_width"/>
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/racknerdBanner"
+                android:layout_width="320dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/racknerd_banner_description"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/racknerd_banner"/>
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:titleTextColor="@android:color/white"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <ProgressBar
+            android:id="@+id/loadingProgressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="gone"
+            android:progressTint="?attr/colorPrimary"
+            android:indeterminateTint="?attr/colorPrimary" />
+
+        <TextView
+            android:id="@+id/filesDetectedTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:textColor="?attr/colorPrimary" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/vpsMessagesRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingBottom="66dp"
+            android:clipToPadding="false" />
+
+    </LinearLayout>
+
+    <!-- AdMob banneri kiinni pohjassa -->
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:adSize="BANNER"
+        app:adUnitId="ca-app-pub-1129549529502330/5043324830" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

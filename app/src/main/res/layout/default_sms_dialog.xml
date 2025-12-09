@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@drawable/dialog_background">
+
+    <TextView
+        android:id="@+id/dialog_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="To use SMS2VPS, make it default app"
+        android:textSize="16sp"
+        android:textColor="#333333"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btn_set_default"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Set as Default"
+            android:textSize="14sp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/button_primary"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cancel"
+            android:textSize="14sp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/button_secondary"
+            android:textColor="#666666" />
+
+    </LinearLayout>
+
+</LinearLayout>

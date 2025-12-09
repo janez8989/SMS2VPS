@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <item
+        android:id="@+id/menu_overflow"
+        android:icon="@drawable/ic_settings_custom"
+        android:title="Menu"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/action_vps_settings"
+                android:title="VPS Settings" />
+            <item
+                android:id="@+id/action_vps_storage"
+                android:title="VPS Storage" />
+            <item
+                android:id="@+id/action_google_settings"
+                android:title="Google" />
+            <item
+                android:id="@+id/action_set_default"
+                android:title="Default App" />
+            <item
+                android:id="@+id/font_size_menu"
+                android:title="Font Size">
+                <menu>
+                    <item
+                        android:id="@+id/font_size_small"
+                        android:title="Small" />
+                    <item
+                        android:id="@+id/font_size_medium"
+                        android:title="Medium" />
+                    <item
+                        android:id="@+id/font_size_large"
+                        android:title="Large" />
+                </menu>
+            </item>
+            <item
+                android:id="@+id/action_terms_of_use"
+                android:title="Terms of Use" />
+        </menu>
+    </item>
+</menu>

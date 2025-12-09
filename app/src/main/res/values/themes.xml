@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.SMS2VPS" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/google_blue</item>
+        <item name="colorPrimaryVariant">@color/google_blue_dark</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+        
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">@color/google_blue</item>
+        <item name="colorSecondaryVariant">@color/google_blue_dark</item>
+        <item name="colorOnSecondary">@android:color/white</item>
+        
+        <!-- Status bar color -->
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
+        <item name="android:windowLightStatusBar">false</item>
+        
+        <!-- Text colors -->
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        
+        <!-- Background colors -->
+        <item name="android:colorBackground">@android:color/white</item>
+        <item name="colorSurface">@android:color/white</item>
+        
+        <!-- Enable window content transitions -->
+        <item name="android:windowActivityTransitions">true</item>
+    </style>
+</resources>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/google_blue_dark"
+    android:layerType="none"
+    android:minWidth="200dp"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/popup_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@color/google_blue_dark"
+        android:backgroundTint="@color/google_blue_dark"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="@string/new_conversation"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btn_new_number"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/popup_button_selector"
+        android:backgroundTint="@color/backgroundColor"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="A new number"
+        android:textAppearance="@style/SelectedFontSizeItem"
+        android:textColor="@color/backgroundColor"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btn_select_contact"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/popup_button_selector"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="Select a contact"
+        android:textAppearance="@style/SelectedFontSizeItem"
+        android:textColor="@color/backgroundColor"
+        android:textSize="14sp" />
+
+</LinearLayout>

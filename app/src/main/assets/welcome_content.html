@@ -1,0 +1,184 @@
+<p class="meta"><em>Last updated: 24 September 2025</em></p>
+
+<div class="toc">
+  <strong>Contents:</strong>
+      <a href="#intro">1. Introduction</a> ·
+      <a href="#purpose">2. Purpose of the App</a> ·
+      <a href="#eligibility">3. Eligibility & Usage</a> ·
+      <a href="#permissions">4. Permissions</a> ·
+      <a href="#privacy">5. Data Handling & Privacy</a> ·
+      <a href="#google-services">6. Google Services Integration</a> ·
+      <a href="#google-quotas">7. Google Service Quotas</a> ·
+      <a href="#ads">8. Ads and Analytics</a> ·
+      <a href="#responsibility">9. User Responsibility</a> ·
+      <a href="#affiliate">10. Affiliate Links</a> ·
+      <a href="#ads-tos">11. Advertising Services</a> ·
+      <a href="#liability">12. Limitations of Liability</a> ·
+      <a href="#changes">13. Changes</a> ·
+      <a href="#contact">14. Contact</a>
+</div>
+
+
+    <h2 id="intro">1. Introduction</h2>
+    <p>Welcome to SMS2VPS. These Terms of Use ("Terms") and this Privacy Policy ("Policy") explain how you may use the SMS2VPS application ("App") and how the App handles your information. By downloading or using the App, you agree to these Terms and acknowledge this Policy. If you do not agree, do not use the App.</p>
+
+    <h2 id="purpose">2. Purpose of the App</h2>
+    <p>The App forwards incoming text messages (SMS) from your device to destinations you define, such as:</p>
+    <ul>
+      <li>a Virtual Private Server (VPS),</li>
+      <li>a Gmail account, or</li>
+      <li>a Google Drive folder.</li>
+    </ul>
+    <p>The App can also send SMS messages from your device. Multimedia messages (MMS) are not supported. When forwarding to a VPS, the App uses the SSH protocol to securely connect to your server, ensures that a folder exists at the path you configured, and stores each SMS as a <code>.txt</code> file.</p>
+
+    <h2 id="eligibility">3. Eligibility & Usage</h2>
+    <ul>
+      <li>SMS2VPS provides users with a secure and private method to backup and migrate their personal SMS messages to cloud services they already trust and use, putting them in full control of their data.</li>
+      <li>You are responsible for configuring and maintaining your VPS, Gmail, and Google Drive destinations.</li>
+      <li>Some features require permissions; if a permission is not granted, the related feature will not work.</li>
+    </ul>
+
+    <h2 id="permissions">4. Permissions</h2>
+    <p>To use SMS2VPS, the App must be set as your phone’s <strong>default text messaging (SMS) application</strong>. When the App is launched for the first time and is not yet the default SMS app, a welcome screen is shown where you can view and accept these Terms of Use ("Terms") and this Privacy Policy ("Policy"). After you accept the Terms and Policy, the App will guide you to a menu where you can set SMS2VPS as your default SMS app.</p>
+
+    <p>When you set SMS2VPS as the default SMS app, the following permissions are automatically granted to enable full functionality:</p>
+    <ul>
+      <li><strong>SEND_SMS, RECEIVE_SMS, READ_SMS, RECEIVE_MMS, WRITE_SMS, POST_NOTIFICATIONS</strong></li>
+    </ul>
+
+    <p>The App also requires the following permissions to provide reliable background operations and network connectivity:</p>
+    <ul>
+        <li><strong>FOREGROUND_SERVICE &amp; FOREGROUND_SERVICE_DATA_SYNC</strong> – The app uses a foreground service to securely synchronize user messages with the user-defined VPS (Virtual Private Server) in real time, even when the app is minimized.
+            To enable this feature, the user must manually configure VPS connection details in the VPS Settings view and activate synchronization by pressing the Activate SMS Sync button.
+            This ensures reliable message delivery, data consistency, and full user control over synchronization behavior through a visible foreground notification.</li>
+        <li><strong>INTERNET</strong> – Allows the App to send and receive data over the Internet. Internet access is essential for the App’s core functionality.</li>
+      <li><strong>ACCESS_NETWORK_STATE</strong> – Allows the App to check network availability and type (Wi-Fi/mobile data).</li>
+    </ul>
+
+    <p>Other permissions:</p>
+    <ul>
+      <li><strong>Google account access</strong> – required only if you enable forwarding to Gmail or saving to Google Drive. You will be asked to sign in and grant the necessary scopes for sending to Gmail and writing files to Drive.</li>
+      <li><strong>READ_CONTACTS</strong> – required only if you want to view your phone's saved contacts when sending messages through the App. To access contacts in the <em>Select a Contact</em> view, you need to grant permission by turning on the toggle switch in that view.</li>
+    </ul>
+
+    <p class="note"><strong>Transparency:</strong> The App presents these explanations before any permission prompts. You can revoke permissions at any time in your device settings; doing so will disable the related features.</p>
+
+    <h2 id="privacy">5. Data Handling & Privacy</h2>
+    
+    <div class="privacy-highlight">
+      <strong>Important Privacy Notice:</strong> The App developer does not collect, store, or access any personal contact information from users' devices. We do not gather phone numbers, email addresses, or any other contact details from your device's contact list or elsewhere.
+    </div>
+    
+    <ul>
+      <li>The App does <strong>not</strong> collect, store, or share your personal data with third parties, except as necessary to display ads via Google AdMob.</li>
+      <li>SMS content is forwarded <em>only</em> to the destinations you configure (VPS/Gmail/Drive). This content includes:
+        <ul>
+          <li>Sender's phone number or contact name (if saved in your device's contacts)</li>
+          <li>Date and time when the message was received</li>
+          <li>The actual text content of the message</li>
+        </ul>
+        No analytics or background telemetry is performed beyond advertising.
+      </li>
+      <li>The App does not access, read, or transmit your device's contact list or any personal contact information.</li>
+      <li>No user data is sold to third parties by this App or its developer.</li>
+      <li>When messages are synchronized to the user-defined VPS (Virtual Private Server), all communications are secured using the SSH protocol for encrypted transmission.</li>
+    </ul>
+
+    <p><strong>Additional Security:</strong> SMS2VPS uses the <strong>JSch library</strong> to establish secure SSH connections to your VPS server. When the App forwards SMS messages to your VPS, it utilizes the <strong>SSH-2 protocol</strong>, which is the modern and secure version of the SSH protocol and the current industry standard for secure remote connections. This ensures that all communication between your Android device and VPS server is encrypted and protected against unauthorized access, maintaining the privacy and security of your SMS data during transmission.</p>
+
+    <h2 id="google-services">6. Google Services Integration</h2>
+    
+    <div class="google-approval">
+      <strong>Google OAuth Verification:</strong> SMS2VPS has undergone Google's OAuth verification process and has been officially approved to access Gmail and Google Drive services. This verification ensures that the App meets Google's security and privacy standards for accessing user data.
+    </div>
+    
+    <p>The App integrates with Google services to provide Gmail forwarding and Google Drive storage capabilities:</p>
+    <ul>
+      <li><strong>Gmail Integration:</strong> When enabled, the App can forward SMS messages to your Gmail account using Google's official APIs.</li>
+      <li><strong>Google Drive Integration:</strong> When enabled, the App can save SMS messages as text files to your Google Drive using secure, authenticated connections.</li>
+      <li>All Google service integrations use OAuth 2.0 authentication, ensuring your Google account credentials are never stored or accessed by the App.</li>
+      <li>You can revoke the App's access to your Google account at any time through your Google Account settings.</li>
+    </ul>
+
+    <h2 id="google-quotas">7. Google Service Quotas and Costs</h2>
+    <p>When using Google services (Gmail and Google Drive) through this App, please note the following important information about usage limits and potential costs:</p>
+    
+    <div class="quota">
+      <p><strong>Gmail Free Tier:</strong> Google provides <strong>15 GB</strong> of free storage shared across Gmail, Google Drive, and Google Photos. If you exceed this limit, you will need to purchase additional storage from Google.</p>
+      
+      <p><strong>Google Drive Free Tier:</strong> The same <strong>15 GB</strong> free storage limit applies to Google Drive. This storage is shared across all Google services in your account.</p>
+      
+      <p><strong>Gmail Sending Limits:</strong> Gmail accounts have daily sending limits:
+        <ul>
+          <li><strong>500 recipients per day</strong> for standard @gmail.com accounts</li>
+          <li>Messages are grouped into conversations for counting purposes</li>
+        </ul>
+    </div>
+    
+    <p class="warning"><strong>Important:</strong> If you exceed Google's free usage limits, <strong>you (the user)</strong> are solely responsible for any costs associated with additional storage or usage. The App developer is not responsible for any charges incurred from exceeding Google's free tier limits.</p>
+    
+    <p>For the most current information on Google's pricing and quotas, please refer to:
+      <a href="https://one.google.com/storage" target="_blank" rel="noopener">Google Storage Plans</a> and 
+      <a href="https://support.google.com/a/answer/166852" target="_blank" rel="noopener">Gmail Sending Limits</a>.
+    </p>
+
+    <h2 id="ads">8. Ads and Analytics</h2>
+    <p>
+      This App uses <strong>Google AdMob</strong> to display advertisements. AdMob may collect and process certain personal data to provide and improve ad services, including:
+    </p>
+    <ul>
+      <li>Device identifiers</li>
+      <li>IP address and approximate location</li>
+      <li>App usage data</li>
+      <li>Interaction with advertisements</li>
+    </ul>
+    <p>
+      Data may be used for delivering personalized or non-personalized ads. You can manage your ad personalization preferences via Google's Ads Settings:
+      <a href="https://adssettings.google.com/" target="_blank" rel="noopener">https://adssettings.google.com/</a>.
+    </p>
+    <p>
+      For more details, please review Google's Privacy Policy:
+      <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">https://policies.google.com/privacy</a>.
+    </p>
+    <p>
+      We do not control how AdMob or other advertising networks use the collected data. No personal data is sold to third parties by this App.
+    </p>
+
+    <h2 id="responsibility">9. User Responsibility</h2>
+    <ul>
+      <li>You are responsible for the content you forward and for securing your VPS, Gmail, and Google Drive accounts.</li>
+      <li>Standard carrier charges may apply for sending SMS messages.</li>
+      <li>If you set SMS2VPS as your default SMS app, other SMS apps on your device may not function correctly and will not be able to detect incoming text messages.</li>
+      <li>You are solely responsible for any costs incurred from exceeding Google's free service quotas for Gmail and Google Drive.</li>
+      <li>When using VPS forwarding, you are responsible for maintaining secure SSH access and proper server configuration.</li>
+    </ul>
+
+    <h2 id="affiliate">10. Affiliate Links and Third-Party Services</h2>
+    <ul>
+      <li>This website and the App may include affiliate links to VPS providers or related services.</li>
+      <li>Using these links is entirely optional; you are not required to purchase any advertised services.</li>
+      <li>If you choose to purchase via an affiliate link, the developer may receive a commission at no additional cost to you.</li>
+      <li>The developer is not responsible for the availability, performance, or terms of any third-party services.</li>
+    </ul>
+
+    <h2 id="ads-tos">11. Advertising Services</h2>
+    <ul>
+      <li>This website displays advertisements via Google Adsense.</li>
+      <li>This App displays third-party advertisements via Google AdMob.</li>
+      <li>We are not responsible for the content of advertisements, nor for any products or services offered through ads.</li>
+      <li>Users must not engage in fraudulent ad interactions (e.g., repeated or automated ad clicks).</li>
+      <li>Advertisement content does not necessarily reflect the views of the developer.</li>
+    </ul>
+
+    <h2 id="liability">12. Limitations of Liability</h2>
+    <ul>
+      <li>The App is provided <strong>"as is"</strong>, without warranties of any kind.</li>
+      <li>The developer is not responsible for lost, delayed, or misdelivered messages or for failures caused by third-party services (e.g., VPS providers, Gmail, Google Drive).</li>
+      <li>The developer is not responsible for any costs incurred by users who exceed Google's free service quotas for Gmail or Google Drive.</li>
+    </ul>
+
+    <h2 id="changes">13. Changes to the Service and Terms</h2>
+    <p>We may update the App and these Terms/Policy from time to time. Continued use after changes take effect constitutes acceptance of the updated version.</p>
+
+    <h2 id="contact">14. Contact</h2>
+    <p>Questions or issues? Contact us through our <a href="https://sms2vps.dpdns.org/contact-us.html" target="_blank" rel="noopener">Contact us</a> page.</p>

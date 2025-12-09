@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/welcome_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome to SMS2VPS"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/welcome_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Please review our Terms of Use. You must read to the bottom of the agreement before you can accept" />
+
+    <WebView
+        android:id="@+id/welcome_webview"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/welcome_footer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="By clicking &quot;Accept&quot; you accept our Terms of Use. You can read our Terms of Use and Privacy Policy at any time on Terms of Use &amp; Privacy Policy page within this app." />
+
+    <Button
+        android:id="@+id/accept_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="16dp"
+        android:text="ACCEPT" />
+
+</LinearLayout>

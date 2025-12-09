@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SMS2VPS</string>
+
+    <!-- **GENERAL** -->
+    <string name="no_conversations">No conversations</string>
+    <string name="latest_sms_format">%1$s: %2$s</string>
+    <string name="Settings">Settings</string>
+    <string name="new_conversation">A new conversation</string>
+    <string name="error_required_field">All fields are required</string>
+    <string name="invalid_phone_number">Invalid identifier</string>
+
+    <!-- **SETTINGS ACTIVITY** -->
+    <string name="vps_settings">VPS Settings</string>
+    <string name="vps_ip_address">IP address</string>
+    <string name="vps_port">Port</string>
+    <string name="vps_username">Username</string>
+    <string name="vps_password">Password</string>
+    <string name="enable_sync">Activate SMS Sync</string>
+    <string name="save">Save</string>
+    <string name="settings_saved">Settings saved successfully</string>
+    <string name="save_failed">Failed to save settings</string>
+    <string name="connection_status">Connection</string>
+    <string name="ping">Ping</string>
+    <string name="racknerd_banner_description">RackNerd VPS Services - Affordable and reliable VPS servers</string>
+    <string name="vps_storage_path">VPS storage path</string>
+    <string name="ping_time_format">%1$s ms</string>
+    <string name="ping_failed">Failed</string>
+
+    <!-- **MAIN ACTIVITY & CONVERSATIONS** -->
+    <string name="permission_required">Permission required</string>
+    <string name="permission_required_message">Permission required</string>
+    <string name="error_changing_default_sms_app">Error changing the default SMS app</string>
+    <string name="errorCheckingDefaultSmsApp">Error checking the default SMS app</string>
+
+    <!-- **VIESTIÄ VÄLITÄMINEN VPS:LLE - UUDEN TOIMINNALUON LISÄYKSET** -->
+    <string name="vps_sync_status">Message sync to the VPS sever:</string>
+    <string name="vps_sync_enabled">Active</string>
+    <string name="vps_sync_disabled">Disabled</string>
+    <string name="error_vps_directory_setup">Error in VPS folder settings</string>
+    <string name="vps_directory_created">VPS folder created successfully</string>
+    <string name="error_sending_sms_to_vps">Error sending message to the VPS server</string>
+    <string name="sms_sent_to_vps_success">Message sent to the VPS server successfully</string>
+
+    <!-- **POSSIBLY MISSING (Varmistettu olemassaolo)** -->
+    <string name="delete_confirmation">Do you want to confirm deletion?</string>
+    <string name="viesti_poistettu">Message has been deleted</string>
+
+    <!-- **IMPECCABLE ADDITION FOR `MessageListActivity`** -->
+    <string name="fetch_error">Error retrieving message</string>
+    <string name="delete">Delete</string>
+    <string name="action_settings">Settings</string>
+    <string name="ssh_connection_success">SSH connection success</string>
+    <string name="ssh_connection_failed">SSH connection failed</string>
+
+    <string name="send_message">Send message</string>
+
+    <string name="conversation_title_format">%1$s %2$s</string>
+
+    <string name="contact_display_format">%1$s %2$s</string>
+
+    <!-- **VPS STORAGE ACTIVITY** -->
+    <plurals name="files_detected">
+        <item quantity="one">%d file detected</item>
+        <item quantity="other">%d files detected</item>
+    </plurals>
+    
+    <!-- **DELETE ALL FUNCTIONALITY - UPDATED** -->
+    <string name="deleting_all_messages">Deleting all messages from VPS…</string>
+    <string name="delete_all_messages_title">Delete All Messages</string>
+    <string name="delete_all_messages_question">Are you sure want to delete all SMS messages?</string>
+    <string name="delete_app_cache_option">Delete messages from app cache</string>
+    <string name="delete_vps_messages_option">Delete all messages stored on VPS server</string>
+    <string name="delete_action_irreversible">This action cannot be undone.</string>
+    <string name="deleting_app_cache">Clearing app cache…</string>
+    <string name="deleting_vps_and_cache">Deleting VPS messages and clearing cache…</string>
+    <string name="app_cache_cleared">App cache cleared successfully</string>
+    <string name="both_deleted_successfully">VPS messages deleted and app cache cleared successfully</string>
+
+    <string name="google_logged_in_online">Logged in as: %1$s (Online)</string>
+    <string name="google_logged_in_offline">Logged in as: %1$s (Offline)</string>
+    <string name="google_not_logged_in">Not logged in</string>
+    <string name="google_login_failed">Google login failed: %1$s</string>
+    <string name="google_sign_in_success">Signed in successfully as %1$s</string>
+    <string name="google_sign_out_success">Signed out successfully</string>
+    <string name="google_settings_title">Google Settings</string>
+        <!-- **GOOGLE SIGN-IN** -->
+    <string name="google_client_id">872253828829-maoeo4l62k1qfj50imdr9b5t5ch4j2be.apps.googleusercontent.com</string>
+    <string name="vps_cloud_status_icon">VPS cloud status icon</string>
+    <string name="vps_error">VPS Error</string>
+    <string name="vps_progress">VPS Uploading</string>
+    <string name="vps_success">VPS Success</string>
+    <string name="foreground_service_justification">Synchronizes SMS data with a user-defined VPS endpoint for secure backup and sync</string>
+
+</resources>

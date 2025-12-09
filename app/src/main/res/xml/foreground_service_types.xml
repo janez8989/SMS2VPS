@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<foreground-service-types xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <service
+        android:name=".SmsSynchronizationService"
+        android:foregroundServiceType="dataSync"
+        android:description="@string/foreground_service_justification" />
+
+</foreground-service-types>

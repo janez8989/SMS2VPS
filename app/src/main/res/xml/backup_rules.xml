@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <!-- Tähän voit lisätä sääntöjä myöhemmin, jos haluat estää
+         tiettyjen tiedostojen tai asetusten varmuuskopioinnin.
+         Tällä hetkellä oletuksena kaikki sovelluksen data
+         (paitsi välimuistit ja tietyt muut kohteet) sisällytetään. -->
+</full-backup-content>
