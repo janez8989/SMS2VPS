@@ -55,6 +55,7 @@ Gmail Integration: When enabled, the App can forward SMS messages to your Gmail 
 Google Drive Integration: When enabled, the App can save SMS messages as text files to your Google Drive using secure, authenticated connections.
 All Google service integrations use OAuth 2.0 authentication, ensuring your Google account credentials are never stored or accessed by the App.
 You can revoke the App's access to your Google account at any time through your Google Account settings.
+
 7. Google Service Quotas and Costs
 When using Google services (Gmail and Google Drive) through this App, please note the following important information about usage limits and potential costs:
 
