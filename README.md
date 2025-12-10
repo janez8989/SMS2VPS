@@ -1,4 +1,5 @@
 Latest version 1.0.12
+https://play.google.com/store/apps/details?id=com.sms2vps.app
 
 Terms of Use and this Privacy Policy
 
