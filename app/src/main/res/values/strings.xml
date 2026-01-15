@@ -85,7 +85,7 @@
     <string name="google_sign_out_success">Signed out successfully</string>
     <string name="google_settings_title">Google Settings</string>
         <!-- **GOOGLE SIGN-IN** -->
-    <string name="google_client_id">872253828829-maoeo4l62k1qfj50imdr9b5t5ch4j2be.apps.googleusercontent.com</string>
+    <string name="google_client_id">XXXXXXXXXXX.apps.googleusercontent.com</string>
     <string name="vps_cloud_status_icon">VPS cloud status icon</string>
     <string name="vps_error">VPS Error</string>
     <string name="vps_progress">VPS Uploading</string>
