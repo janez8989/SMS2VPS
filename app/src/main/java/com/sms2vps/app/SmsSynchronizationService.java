@@ -148,7 +148,9 @@ public class SmsSynchronizationService extends Service {
         String vpsIpAddress = prefs.getString("vps_ip", "");
         String vpsUsername = prefs.getString("vps_username", "");
         String vpsPassword = prefs.getString("vps_password", "");
-        String vpsDirectory = prefs.getString("vps_storage_path", "/root/sms"); // Lisätään tämä rivi
+        String vpsDirectory = prefs.getString("vps_storage_path", "/root/sms");
+        String authMethod = prefs.getString("auth_method", "password");
+        String sshKeyContent = prefs.getString("ssh_key_content", "");
         boolean forwardingEnabled = prefs.getBoolean("enable_sync", false);
 
         if (!forwardingEnabled) {
@@ -156,8 +158,24 @@ public class SmsSynchronizationService extends Service {
             return;
         }
 
-        if (vpsIpAddress.isEmpty() || vpsUsername.isEmpty() || vpsPassword.isEmpty()) {
+        if (vpsIpAddress.isEmpty() || vpsUsername.isEmpty()) {
             Log.e(TAG, "VPS settings are not configured");
+            return;
+        }
+
+        // Validate authentication settings
+        if (authMethod.equals("password") && vpsPassword.isEmpty()) {
+            Log.e(TAG, "Password authentication selected but password is empty");
+            return;
+        }
+        
+        if (authMethod.equals("key") && sshKeyContent.isEmpty()) {
+            Log.e(TAG, "SSH key authentication selected but no SSH key configured");
+            return;
+        }
+        
+        if (authMethod.equals("multi_factor") && (vpsPassword.isEmpty() || sshKeyContent.isEmpty())) {
+            Log.e(TAG, "Multi-factor authentication selected but password or SSH key is missing");
             return;
         }
 
@@ -166,15 +184,13 @@ public class SmsSynchronizationService extends Service {
             return;
         }
 
-        if (!testVpsConnection(vpsIpAddress, vpsUsername, vpsPassword)) {
+        if (!testVpsConnection(vpsIpAddress, vpsUsername, vpsPassword, authMethod, sshKeyContent)) {
             Log.e(TAG, "VPS is unreachable. SMS synchronization aborted.");
             return;
         }
 
         try {
-            JSch jsch = new JSch();
-            Session session = jsch.getSession(vpsUsername, vpsIpAddress, getVpsPort());
-            session.setPassword(vpsPassword);
+            Session session = createSshSession(vpsIpAddress, vpsUsername, vpsPassword, authMethod, sshKeyContent);
 
             Properties config = new Properties();
             config.put("StrictHostKeyChecking", "no");
@@ -190,7 +206,10 @@ public class SmsSynchronizationService extends Service {
             ChannelSftp channel = (ChannelSftp) session.openChannel("sftp");
             channel.connect();
 
-            ensureVpsDirectoryExists(channel, vpsDirectory);  // Korjattu metodin kutsu
+            if (!vpsDirectory.startsWith("/")) {
+            vpsDirectory = "/" + vpsDirectory;
+        }
+        ensureVpsDirectoryExists(channel, vpsDirectory);  // Korjattu metodin kutsu
 
             String fileName = "sms_" + timestamp + ".txt";
             String filePath = vpsDirectory + "/" + fileName;
@@ -247,13 +266,11 @@ public class SmsSynchronizationService extends Service {
         }
     }
 
-    private boolean testVpsConnection(String vpsAddress, String username, String password) {
+    private boolean testVpsConnection(String vpsAddress, String username, String password, 
+                                   String authMethod, String sshKeyContent) {
         try {
-            JSch jsch = new JSch();
-            Session session = jsch.getSession(username, vpsAddress, getVpsPort());
-            session.setPassword(password);
-            session.setConfig("StrictHostKeyChecking", "no");
-    
+            Session session = createSshSession(vpsAddress, username, password, authMethod, sshKeyContent);
+            
             try {
                 Log.d(TAG, "Testing SSH connection to " + vpsAddress);
                 session.connect(5000); // 5 sekunnin timeout
@@ -271,17 +288,30 @@ public class SmsSynchronizationService extends Service {
         }
     }
 
-    private void ensureVpsDirectoryExists(ChannelSftp channelSftp, String directory) {
-        try {
-            channelSftp.cd(directory);
-        } catch (SftpException e) {
-            if (e.id == ChannelSftp.SSH_FX_NO_SUCH_FILE) {
-                try {
-                    channelSftp.mkdir(directory);
-                    Log.i(TAG, "Created directory: " + directory);
-                    channelSftp.cd(directory);
-                } catch (SftpException mkdirException) {
-                    Log.e(TAG, "Failed to create or access directory: " + directory, mkdirException);
+    private void ensureVpsDirectoryExists(ChannelSftp channelSftp, String directory) throws SftpException {
+        String[] pathParts = directory.split("/");
+        StringBuilder currentPath = new StringBuilder();
+
+        for (String part : pathParts) {
+            if (part.isEmpty()) {
+                continue;
+            }
+            currentPath.append("/").append(part);
+            try {
+                channelSftp.cd(currentPath.toString());
+            } catch (SftpException e) {
+                if (e.id == ChannelSftp.SSH_FX_NO_SUCH_FILE) {
+                    try {
+                        channelSftp.mkdir(currentPath.toString());
+                        Log.i(TAG, "Created directory: " + currentPath.toString());
+                        channelSftp.cd(currentPath.toString());
+                    } catch (SftpException mkdirException) {
+                        Log.e(TAG, "Failed to create directory: " + currentPath.toString(), mkdirException);
+                        throw mkdirException; // Uudelleenheitä poikkeus, jos hakemiston luonti epäonnistuu
+                    }
+                } else {
+                    Log.e(TAG, "Failed to access directory: " + currentPath.toString(), e);
+                    throw e; // Uudelleenheitä poikkeus, jos pääsy epäonnistuu muusta syystä
                 }
             }
         }
@@ -383,6 +413,30 @@ public class SmsSynchronizationService extends Service {
         Log.d(TAG, "Notification sent with sound: " + soundUri);
     }
 
+    private Session createSshSession(String host, String username, String password, 
+                                    String authMethod, String sshKeyContent) throws Exception {
+        JSch jsch = new JSch();
+        
+        // Add SSH key if key-based or multi-factor authentication is selected
+        if (authMethod.equals("key") || authMethod.equals("multi_factor")) {
+            if (sshKeyContent != null && !sshKeyContent.isEmpty()) {
+                jsch.addIdentity("ssh_key", sshKeyContent.getBytes(), null, null);
+            }
+        }
+        
+        Session session = jsch.getSession(username, host, getVpsPort());
+        
+        // Set password if password-based or multi-factor authentication is selected
+        if (authMethod.equals("password") || authMethod.equals("multi_factor")) {
+            if (password != null && !password.isEmpty()) {
+                session.setPassword(password);
+            }
+        }
+        
+        session.setConfig("StrictHostKeyChecking", "no");
+        return session;
+    }
+
     private void forwardSmsToGoogle(String sender, String message, long timestamp) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         boolean googleEnabled = prefs.getBoolean("google_logged_in", false);
@@ -420,8 +474,6 @@ public class SmsSynchronizationService extends Service {
                 Intent updateIntent = new Intent("com.example.sms2vps.UPDATE_CONVERSATIONS");
                 sendBroadcast(updateIntent);
             }
-            
-            return;
         } catch (Exception e) {
             Log.e(TAG, "Error in Google forwarding", e);
             // Update database with failed Google upload status
@@ -431,7 +483,6 @@ public class SmsSynchronizationService extends Service {
             // Send broadcast for UI update
             Intent updateIntent = new Intent("com.example.sms2vps.UPDATE_CONVERSATIONS");
             sendBroadcast(updateIntent);
-            return;
         }
     }
 }

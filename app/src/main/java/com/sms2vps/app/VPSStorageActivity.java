@@ -268,19 +268,19 @@ public class VPSStorageActivity extends BaseActivity {
         String username = PreferenceManager.getDefaultSharedPreferences(this).getString("vps_username", "");
         String password = PreferenceManager.getDefaultSharedPreferences(this).getString("vps_password", "");
         String storagePath = PreferenceManager.getDefaultSharedPreferences(this).getString("vps_storage_path", "");
-        String port = PreferenceManager.getDefaultSharedPreferences(this).getString("vps_port", "22");
 
         Log.d("VPSStorageActivity", "Deleting from VPS - IP: " + vpsIp + ", Username: " + username + ", Path: " + storagePath);
 
         executorService.execute(() -> {
             try {
-                JSch jsch = new JSch();
-                Session session = jsch.getSession(username, vpsIp, Integer.parseInt(port));
-                session.setPassword(password);
-                session.setConfig("StrictHostKeyChecking", "no");
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(VPSStorageActivity.this);
+                String authMethod = prefs.getString("vps_auth_method", "password");
+                String sshKeyContent = prefs.getString("vps_ssh_key_content", "");
+                
+                Session session = createSshSession(vpsIp, username, password, authMethod, sshKeyContent);
                 session.connect();
 
-                ChannelSftp channel = (ChannelSftp) session.openChannel("sftp");
+                final ChannelSftp channel = (ChannelSftp) session.openChannel("sftp");
                 channel.connect();
 
                 try {
@@ -349,7 +349,7 @@ public class VPSStorageActivity extends BaseActivity {
     private void loadCachedMessages() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String cached = prefs.getString(CACHED_MESSAGES_KEY, "");
-        List<SMSMessage> messages = new ArrayList<>();
+        final List<SMSMessage> messages = new ArrayList<>();
         if (!cached.isEmpty()) {
             String[] rows = cached.split("\n");
             for (String row : rows) {
@@ -409,38 +409,52 @@ public class VPSStorageActivity extends BaseActivity {
         String username = sharedPrefs.getString("vps_username", "");
         String password = sharedPrefs.getString("vps_password", "");
         String storagePath = sharedPrefs.getString("vps_storage_path", "");
-        String port = sharedPrefs.getString("vps_port", "22");
+        final String authMethod = sharedPrefs.getString("vps_auth_method", "password");
+        
+        // Jos käyttäjä on valinnut SSH Key -autentikoinnin, älä käytä salasanaa
+        if ("ssh_key".equals(authMethod)) {
+            password = ""; // Tyhjennä salasana SSH Key -tapauksessa
+        }
+
+        // Korjataan storagePath varmistamalla, että se alkaa aina kauttaviivalla
+        if (!storagePath.startsWith("/")) {
+            storagePath = "/" + storagePath;
+        }
+
+        final String finalVpsIp = vpsIp;
+        final String finalUsername = username;
+        final String finalPassword = password;
+        final String finalStoragePath = storagePath;
 
         Log.d("VPSStorageActivity", "VPS Settings - IP: " + vpsIp + ", Username: " + username + ", Path: " + storagePath);
 
         executorService.execute(() -> {
             try {
-                JSch jsch = new JSch();
-                Session session = jsch.getSession(username, vpsIp, Integer.parseInt(port));
-                session.setPassword(password);
-                session.setConfig("StrictHostKeyChecking", "no");
+                final String sshKeyContent = sharedPrefs.getString("vps_ssh_key_content", "");
+                
+                Session session = createSshSession(finalVpsIp, finalUsername, finalPassword, authMethod, sshKeyContent);
                 session.connect();
 
-                ChannelSftp channel = (ChannelSftp) session.openChannel("sftp");
+                final ChannelSftp channel = (ChannelSftp) session.openChannel("sftp");
                 channel.connect();
 
-                List<SMSMessage> messages = new ArrayList<>();
+                final List<SMSMessage> messages = new ArrayList<>();
                 try {
                     // Check if SMS folder exists
                     try {
-                        channel.cd(storagePath);
-                        Log.d("VPSStorageActivity", "SMS folder found: " + storagePath);
+                        channel.cd(finalStoragePath);
+                        Log.d("VPSStorageActivity", "SMS folder found: " + finalStoragePath);
                     } catch (SftpException e) {
                         if (e.id == ChannelSftp.SSH_FX_NO_SUCH_FILE) {
-                            Log.d("VPSStorageActivity", "SMS folder not found: " + storagePath);
-                            mainHandler.post(() -> showSmsFolderNotFoundDialog(channel, storagePath));
+                            Log.d("VPSStorageActivity", "SMS folder not found: " + finalStoragePath);
+                            mainHandler.post(() -> showSmsFolderNotFoundDialog(channel, finalStoragePath));
                             return;
                         } else {
                             throw e;
                         }
                     }
                     
-                    Log.d("VPSStorageActivity", "Connected to VPS and changed directory to: " + storagePath);
+                    Log.d("VPSStorageActivity", "Connected to VPS and changed directory to: " + finalStoragePath);
 
                     @SuppressWarnings("unchecked")
                     Vector<ChannelSftp.LsEntry> list = (Vector<ChannelSftp.LsEntry>) channel.ls("*");
@@ -711,5 +725,30 @@ public class VPSStorageActivity extends BaseActivity {
                })
                .setCancelable(false)
                .show();
+    }
+
+    private Session createSshSession(String host, String username, String password, 
+                                    String authMethod, String sshKeyContent) throws Exception {
+        JSch jsch = new JSch();
+        
+        // Add SSH key if key-based or multi-factor authentication is selected
+        if (authMethod.equals("ssh_key") || authMethod.equals("multi_factor")) {
+            if (sshKeyContent != null && !sshKeyContent.isEmpty()) {
+                jsch.addIdentity("ssh_key", sshKeyContent.getBytes(), null, null);
+            }
+        }
+        
+        String port = PreferenceManager.getDefaultSharedPreferences(this).getString("vps_port", "22");
+        Session session = jsch.getSession(username, host, Integer.parseInt(port));
+        
+        // Set password if password-based or multi-factor authentication is selected
+        if (authMethod.equals("password") || authMethod.equals("multi_factor")) {
+            if (password != null && !password.isEmpty()) {
+                session.setPassword(password);
+            }
+        }
+        
+        session.setConfig("StrictHostKeyChecking", "no");
+        return session;
     }
 }

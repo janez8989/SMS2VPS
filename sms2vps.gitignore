@@ -1,0 +1,4 @@
+# Keystore files
+*.jks
+*.keystore
+app/keystores/

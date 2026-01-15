@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SMS2VPS — Terms of Use & Privacy Policy</title>
+  <meta name="description" content="Terms of Use & Privacy Policy for SMS2VPS app." />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root{
+      --bg:#f4f7f9; --card:#fff; --text:#333; --muted:#6b7280; --title:#2c3e50; --accent:#2563eb;
+    }
+    *{box-sizing:border-box}
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background:var(--bg); color:var(--text); margin:0; line-height:1.65;
+    }
+    .container{
+      max-width: 960px; margin: 40px auto; padding: 24px; background:var(--card);
+      border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,.08);
+    }
+    .header{
+      display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;
+      position:relative;
+    }
+    .logo{width:64px; height:64px; border-radius:12px; object-fit:cover; box-shadow:0 3px 10px rgba(0,0,0,.15)}
+    .title{
+      position:absolute; left:50%; transform:translateX(-50%);
+      font-size:1.6rem; font-weight:600; color:var(--title);
+      white-space:nowrap;
+    }
+    .nav{position:relative}
+    .menu-toggle{
+      background:none; border:1px solid #e5e7eb; font-size:1.1rem; padding:8px 10px; border-radius:10px; cursor:pointer;
+    }
+    .dropdown{position:absolute; right:0; top:120%; background:#fff; border:1px solid #e5e7eb; border-radius:12px;
+      box-shadow:0 12px 30px rgba(0,0,0,.12); min-width:220px; display:none; overflow:hidden;
+    }
+    .dropdown a{display:block; padding:12px 14px; color:var(--text); text-decoration:none}
+    .dropdown a:hover{background:#f9fafb}
+    .show{display:block}
+    .meta{color:var(--muted); margin-bottom:18px}
+    .toc{
+      background:#f9fafb; border:1px solid #eef2f7; padding:12px 16px; border-radius:12px; font-size:.95rem;
+    }
+    .toc a{color:var(--accent); text-decoration:none}
+    h2{color:var(--title); margin-top:28px; scroll-margin-top:90px}
+    h3{color:var(--title); margin-top:22px}
+    ul{margin:10px 0 0 1.1rem}
+    code{background:#f3f4f6; padding:2px 6px; border-radius:6px; font-size:.95em}
+    .note{
+      background:#ecfdf5; border:1px solid #d1fae5; color:#065f46; padding:10px 12px; border-radius:10px; font-size:.95rem;
+    }
+    .warning{
+      background:#fef3c7; border:1px solid #f59e0b; color:#92400e; padding:10px 12px; border-radius:10px; font-size:.95rem;
+    }
+    .privacy-highlight {
+      background:#fffbeb; border:1px solid #f59e0b; color:#92400e; padding:16px; border-radius:10px; 
+      margin: 16px 0; border-left: 4px solid #f59e0b;
+    }
+    .quota {
+      background:#e0f2fe; border:1px solid #0ea5e9; color:#0c4a6e; padding:12px 16px; border-radius:10px; font-size:.95rem;
+      margin: 16px 0;
+    }
+    .quota strong {color:#0369a1;}
+    footer{margin-top:36px; color:#9aa3af; font-size:.9rem; text-align:center}
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <p class="meta"><em>Last updated: 20 September 2025</em></p>
+
+    <div class="toc">
+      <strong>Contents:</strong>
+      <a href="#intro">1. Introduction</a> ·
+      <a href="#purpose">2. Purpose of the App</a> ·
+      <a href="#eligibility">3. Eligibility & Usage</a> ·
+      <a href="#permissions">4. Permissions</a> ·
+      <a href="#privacy">5. Data Handling & Privacy</a> ·
+      <a href="#google-quotas">6. Google Service Quotas</a> ·
+      <a href="#ads">7. Ads and Analytics</a> ·
+      <a href="#beta">8. Beta Testing</a> ·
+      <a href="#responsibility">9. User Responsibility</a> ·
+      <a href="#affiliate">10. Affiliate Links</a> ·
+      <a href="#ads-tos">11. Advertising Services</a> ·
+      <a href="#liability">12. Limitations of Liability</a> ·
+      <a href="#changes">13. Changes</a> ·
+      <a href="#contact">14. Contact</a>
+    </div>
+
+    <h2 id="intro">1. Introduction</h2>
+    <p>Welcome to SMS2VPS. These Terms of Use ("Terms") and this Privacy Policy ("Policy") explain how you may use the SMS2VPS application ("App") and how the App handles your information. By downloading or using the App, you agree to these Terms and acknowledge this Policy. If you do not agree, do not use the App.</p>
+
+    <h2 id="purpose">2. Purpose of the App</h2>
+    <p>The App forwards incoming text messages (SMS) from your device to destinations you define, such as:</p>
+    <ul>
+      <li>a Virtual Private Server (VPS),</li>
+      <li>a Gmail account, or</li>
+      <li>a Google Drive folder.</li>
+    </ul>
+    <p>The App can also send SMS messages from your device. Multimedia messages (MMS) are not supported. When forwarding to a VPS, the App ensures that a folder exists at the path you configured and stores each SMS as a <code>.txt</code> file.</p>
+
+    <h2 id="eligibility">3. Eligibility & Usage</h2>
+    <ul>
+      <li>The App is intended for personal use.</li>
+      <li>You are responsible for configuring and maintaining your VPS, Gmail, and Google Drive destinations.</li>
+      <li>Some features require permissions; if a permission is not granted, the related feature will not work.</li>
+    </ul>
+
+    <h2 id="permissions">4. Permissions</h2>
+    <p>In order for the App to receive incoming text messages on your phone, you must grant SMS permissions to the App. The following permissions are required:</p>
+    
+    <ul>
+      <li><strong>SMS access</strong> - required to read and send SMS messages for forwarding. The App will request permission to read and send text messages when you first open it after installation. This permission is essential for the App to function and receive incoming text messages on your phone.</li>
+    </ul>
+
+    <p class="warning"><strong>Important:</strong> Without SMS permissions, the App cannot receive or forward text messages.</p>
+
+    <ul>
+      <li><strong>Default SMS app (optional)</strong> - You can optionally set SMS2VPS as your default SMS app from the dropdown menu on the home screen. This is currently not required for the App's core functionality.</li>
+    </ul>
+
+    <p class="warning"><strong>Warning:</strong> If you set SMS2VPS as your default SMS app, the previously default SMS app will no longer detect or receive text messages.</p>
+
+    <ul>
+      <li><strong>Google account access</strong> - required only if you enable forwarding to Gmail or saving to Google Drive. You will be asked to sign in and grant the necessary scopes for sending to Gmail and writing files to Drive.</li>
+      <li><strong>Contacts access</strong> - required only if you want to view your phone's saved contacts when sending messages through the App. To access contacts in the <em>Select a Contact</em> view, you need to grant permission by turning on the toggle switch in that view.</li>
+    </ul>
+
+    <p class="note"><strong>Transparency:</strong> The App presents these explanations before any permission prompts. You can revoke permissions at any time in your device settings; doing so will disable the related features.</p>
+
+    <h2 id="privacy">5. Data Handling & Privacy</h2>
+    
+    <div class="privacy-highlight">
+      <strong>Important Privacy Notice:</strong> The App developer does not collect, store, or access any personal contact information from users' devices. We do not gather phone numbers, email addresses, or any other contact details from your device's contact list or elsewhere.
+    </div>
+    
+    <ul>
+      <li>The App does <strong>not</strong> collect, store, or share your personal data with third parties, except as necessary to display ads via Google AdMob.</li>
+      <li>SMS content is forwarded <em>only</em> to the destinations you configure (VPS/Gmail/Drive). This content includes:
+        <ul>
+          <li>Sender's phone number or contact name (if saved in your device's contacts)</li>
+          <li>Date and time when the message was received</li>
+          <li>The actual text content of the message</li>
+        </ul>
+        No analytics or background telemetry is performed beyond advertising.
+      </li>
+      <li>The App does not access, read, or transmit your device's contact list or any personal contact information.</li>
+      <li>No user data is sold to third parties by this App or its developer.</li>
+    </ul>
+
+    <h3>Contact Information Privacy</h3>
+    <p>
+      If you choose to contact the App developer or this website administrator through the 
+      <a href="https://sms2vps.dpdns.org/contact-us.html" target="_blank" rel="noopener">Contact us</a> page, the following privacy protections apply:
+    </p>
+    <ul>
+      <li>Your name, email address, and message content provided in the contact form will <strong>not</strong> be shared with any third parties.</li>
+      <li>The App developer will <strong>not</strong> use your contact information for advertising purposes.</li>
+      <li>Contact information and message content are used <strong>solely and exclusively</strong> for providing technical support.</li>
+      <li>Contact information provided through the website contact form is not linked to your app usage in any way.</li>
+    </ul>
+
+    <h2 id="google-quotas">6. Google Service Quotas and Costs</h2>
+    <p>When using Google services (Gmail and Google Drive) through this App, please note the following important information about usage limits and potential costs:</p>
+    
+    <div class="quota">
+      <p><strong>Gmail Free Tier:</strong> Google provides <strong>15 GB</strong> of free storage shared across Gmail, Google Drive, and Google Photos. If you exceed this limit, you will need to purchase additional storage from Google.</p>
+      
+      <p><strong>Google Drive Free Tier:</strong> The same <strong>15 GB</strong> free storage limit applies to Google Drive. This storage is shared across all Google services in your account.</p>
+      
+      <p><strong>Gmail Sending Limits:</strong> Gmail accounts have daily sending limits:
+        <ul>
+          <li><strong>500 recipients per day</strong> for standard @gmail.com accounts</li>
+          <li>Messages are grouped into conversations for counting purposes</li>
+        </ul>
+      </p>
+    </div>
+    
+    <p class="warning"><strong>Important:</strong> If you exceed Google's free usage limits, <strong>you (the user)</strong> are solely responsible for any costs associated with additional storage or usage. The App developer is not responsible for any charges incurred from exceeding Google's free tier limits.</p>
+    
+    <p>For the most current information on Google's pricing and quotas, please refer to:
+      <a href="https://one.google.com/storage" target="_blank" rel="noopener">Google Storage Plans</a> and 
+      <a href="https://support.google.com/a/answer/166852" target="_blank" rel="noopener">Gmail Sending Limits</a>.
+    </p>
+
+    <h2 id="ads">7. Ads and Analytics</h2>
+    <p>
+      This App uses <strong>Google AdMob</strong> to display advertisements. AdMob may collect and process certain personal data to provide and improve ad services, including:
+    </p>
+    <ul>
+      <li>Device identifiers</li>
+      <li>IP address and approximate location</li>
+      <li>App usage data</li>
+      <li>Interaction with advertisements</li>
+    </ul>
+    <p>
+      Data may be used for delivering personalized or non-personalized ads. You can manage your ad personalization preferences via Google's Ads Settings:
+      <a href="https://adssettings.google.com/" target="_blank" rel="noopener">https://adssettings.google.com/</a>.
+    </p>
+    <p>
+      For more details, please review Google's Privacy Policy:
+      <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">https://policies.google.com/privacy</a>.
+    </p>
+    <p>
+      We do not control how AdMob or other advertising networks use the collected data. No personal data is sold to third parties by this App.
+    </p>
+
+    <h2 id="beta">8. Beta Testing</h2>
+    <ul>
+      <li>During the beta phase, forwarding SMS to Gmail or Google Drive requires an invitation.</li>
+      <li>Request access via the <a href="https://sms2vps.dpdns.org/contact-us.html" target="_blank" rel="noopener">Contact us</a> page.</li>
+      <li>Email addresses submitted for beta access are used only to enable testing and will be removed from Google Cloud Console after beta ends and the App is successfully published on Google Play.</li>
+    </ul>
+
+    <h2 id="responsibility">9. User Responsibility</h2>
+    <ul>
+      <li>You are responsible for the content you forward and for securing your VPS, Gmail, and Google Drive accounts.</li>
+      <li>Standard carrier charges may apply for sending SMS messages.</li>
+      <li>If you set SMS2VPS as your default SMS app, other SMS apps on your device may not function correctly and will not be able to detect incoming text messages.</li>
+      <li>You are solely responsible for any costs incurred from exceeding Google's free service quotas for Gmail and Google Drive.</li>
+    </ul>
+
+    <h2 id="affiliate">10. Affiliate Links and Third-Party Services</h2>
+    <ul>
+      <li>The App may include affiliate links to VPS providers or related services.</li>
+      <li>Using these links is entirely optional; you are not required to purchase any advertised services.</li>
+      <li>If you choose to purchase via an affiliate link, the developer may receive a commission at no additional cost to you.</li>
+      <li>The developer is not responsible for the availability, performance, or terms of any third-party services.</li>
+    </ul>
+
+    <h2 id="ads-tos">11. Advertising Services</h2>
+    <ul>
+      <li>This App displays third-party advertisements via Google AdMob.</li>
+      <li>We are not responsible for the content of advertisements, nor for any products or services offered through ads.</li>
+      <li>Users must not engage in fraudulent ad interactions (e.g., repeated or automated ad clicks).</li>
+      <li>Advertisement content does not necessarily reflect the views of the developer.</li>
+    </ul>
+
+    <h2 id="liability">12. Limitations of Liability</h2>
+    <ul>
+      <li>The App is provided <strong>"as is"</strong>, without warranties of any kind.</li>
+      <li>The developer is not responsible for lost, delayed, or misdelivered messages or for failures caused by third-party services (e.g., VPS providers, Gmail, Google Drive).</li>
+      <li>The developer is not responsible for any costs incurred by users who exceed Google's free service quotas for Gmail or Google Drive.</li>
+    </ul>
+
+    <h2 id="changes">13. Changes to the Service and Terms</h2>
+    <p>We may update the App and these Terms/Policy from time to time. Continued use after changes take effect constitutes acceptance of the updated version.</p>
+
+    <h2 id="contact">14. Contact</h2>
+    <p>Questions or issues? Contact us through our <a href="https://sms2vps.dpdns.org/contact-us.html" target="_blank" rel="noopener">Contact us</a> page.</p>
+
+    <footer>&copy; 2025 SMS2VPS. All rights reserved.</footer>
+  </div>
+
+  <script>
+    const btn = document.getElementById('menuBtn');
+    const menu = document.getElementById('dropdownMenu');
+    btn.addEventListener('click', () => {
+      const open = menu.classList.toggle('show');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    window.addEventListener('click', (e) => {
+      if(!btn.contains(e.target) && !menu.contains(e.target)){
+        menu.classList.remove('show');
+        btn.setAttribute('aria-expanded','false');
+      }
+    }, {capture:true});
+  </script>
+</body>
+</html>

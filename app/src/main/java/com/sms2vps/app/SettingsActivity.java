@@ -7,6 +7,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.SwitchCompat;
@@ -19,21 +22,33 @@ import android.widget.TextView;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
+import java.io.InputStream;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
 
 public class SettingsActivity extends BaseActivity {
+    private static final int REQUEST_CODE_SELECT_SSH_KEY = 1001;
     private EditText vpsIpAddressEdit;
     private EditText vpsUsernameEdit;
     private EditText vpsStoragePathEdit;
     private EditText vpsPasswordEdit;
     private EditText vpsPortEdit;
     private SwitchCompat enableSyncSwitch;
-    private SharedPreferences preferences;
     private View connectionStatusIndicator;
     private Button pingButton;
     private TextView pingResultText;
     private TextView sshStatusText;
+    private SharedPreferences preferences;
+    private RadioGroup authMethodRadioGroup;
+    private RadioButton authPasswordRadio;
+    private RadioButton authKeyRadio;
+    private RadioButton authMultiFactorRadio;
+    private View sshKeyContainer;
+    private Button selectSshKeyButton;
+    private ImageButton clearSshKeyButton;
+    private TextView sshKeyInfoText;
+    private String sshPrivateKeyContent;
+    private String sshPrivateKeyPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +91,23 @@ public class SettingsActivity extends BaseActivity {
         vpsPasswordEdit = findViewById(R.id.vpsPasswordEdit);
         vpsPortEdit = findViewById(R.id.vpsPortEdit);
         enableSyncSwitch = findViewById(R.id.enableSyncSwitch);
+        
+        // SSH Key authentication setup
+        authMethodRadioGroup = findViewById(R.id.authMethodRadioGroup);
+        authPasswordRadio = findViewById(R.id.authPasswordRadio);
+        authKeyRadio = findViewById(R.id.authKeyRadio);
+        authMultiFactorRadio = findViewById(R.id.authMultiFactorRadio);
+        sshKeyContainer = findViewById(R.id.sshKeyContainer);
+        selectSshKeyButton = findViewById(R.id.selectSshKeyButton);
+        sshKeyInfoText = findViewById(R.id.sshKeyInfoText);
+        
+        // Lisää poistopainike SSH-avaimelle
+        clearSshKeyButton = findViewById(R.id.clearSshKeyButton);
+        clearSshKeyButton.setOnClickListener(v -> clearSshKey());
+        
+        authMethodRadioGroup.setOnCheckedChangeListener((group, checkedId) -> updateAuthMethodUi());
+        
+        selectSshKeyButton.setOnClickListener(v -> selectSshKeyFile());
         enableSyncSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             // Tarkista että VPS-asetukset ovat täydelliset ennen kuin sallitaan pois kytkeminen
             if (!isChecked) {
@@ -145,6 +177,9 @@ public class SettingsActivity extends BaseActivity {
                 Toast.makeText(this, R.string.error_required_field, Toast.LENGTH_SHORT).show();
             }
         });
+        
+        // Load saved authentication method
+        loadAuthSettings();
     }
 
     private void performPingTest(String vpsIp) {
@@ -203,6 +238,56 @@ public class SettingsActivity extends BaseActivity {
         if (enableSyncSwitch != null) {
             enableSyncSwitch.setChecked(preferences.getBoolean("enable_sync", false));
         }
+        
+        // Lataa SSH-avaimen asetukset
+        String authMethod = preferences.getString("vps_auth_method", "password");
+        if ("ssh_key".equals(authMethod)) {
+            authKeyRadio.setChecked(true);
+        } else if ("multi_factor".equals(authMethod)) {
+            authMultiFactorRadio.setChecked(true);
+        } else {
+            authPasswordRadio.setChecked(true);
+        }
+        
+        // Näytä valitun SSH-avaimen tiedot
+        sshPrivateKeyContent = preferences.getString("vps_ssh_key_content", "");
+        updateSshKeyInfo();
+    }
+    
+    private void updateSshKeyInfo() {
+        if (sshPrivateKeyContent != null && !sshPrivateKeyContent.isEmpty()) {
+            // Näytä SSH-avaimen tiedot (lyhyt nimi)
+            String keyInfo = "SSH key selected: " + sshPrivateKeyContent.substring(0, Math.min(20, sshPrivateKeyContent.length())) + "...";
+            sshKeyInfoText.setText(keyInfo);
+            // Näytä poistopainike kun SSH-avain on valittu
+            if (clearSshKeyButton != null) {
+                clearSshKeyButton.setVisibility(View.VISIBLE);
+            }
+        } else {
+            sshKeyInfoText.setText(R.string.no_ssh_key_selected);
+            // Piilota poistopainike kun SSH-avainta ei ole valittu
+            if (clearSshKeyButton != null) {
+                clearSshKeyButton.setVisibility(View.GONE);
+            }
+        }
+    }
+    
+    private void clearSshKey() {
+        // Tyhjennä SSH-avaimen tiedot
+        sshPrivateKeyContent = "";
+        sshPrivateKeyPath = null;
+        
+        // Päivitä käyttöliittymä
+        updateSshKeyInfo();
+        
+        // Poista SSH-avaimen asetukset
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.remove("vps_ssh_key_content");
+        editor.remove("ssh_key_content");
+        editor.remove("ssh_key_path");
+        editor.apply();
+        
+        Toast.makeText(this, R.string.ssh_key_cleared, Toast.LENGTH_SHORT).show();
     }
 
     private void saveSettings() {
@@ -213,7 +298,18 @@ public class SettingsActivity extends BaseActivity {
         String port = vpsPortEdit.getText().toString();
         boolean enableSync = enableSyncSwitch != null && enableSyncSwitch.isChecked();
 
-        if (ipAddress.isEmpty() || username.isEmpty() || password.isEmpty()) {
+        // Validate authentication settings
+        if (!validateAuthSettings()) {
+            return;
+        }
+
+        if (ipAddress.isEmpty() || username.isEmpty()) {
+            Toast.makeText(this, R.string.error_required_field, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // For password auth, password is required
+        if (authPasswordRadio.isChecked() && password.isEmpty()) {
             Toast.makeText(this, R.string.error_required_field, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -228,6 +324,10 @@ public class SettingsActivity extends BaseActivity {
         editor.putBoolean("enable_sync", enableSync);
         editor.putBoolean("enable_forwarding", enableSync);
         editor.putBoolean("vps_settings_saved", true);
+        
+        // Save authentication settings
+        saveAuthSettings();
+        
         editor.apply();
 
         Toast.makeText(this, R.string.settings_saved, Toast.LENGTH_SHORT).show();
@@ -236,28 +336,51 @@ public class SettingsActivity extends BaseActivity {
     private void testConnection() {
         if (connectionStatusIndicator == null) return;
 
-        String vpsIp = vpsIpAddressEdit.getText().toString();
-        String username = vpsUsernameEdit.getText().toString();
-        String password = vpsPasswordEdit.getText().toString();
-        String port = vpsPortEdit.getText().toString();
+        final String vpsIp = vpsIpAddressEdit.getText().toString();
+        final String username = vpsUsernameEdit.getText().toString();
+        final String password = vpsPasswordEdit.getText().toString();
+        final String portStr = vpsPortEdit.getText().toString();
 
-        if (vpsIp.isEmpty() || username.isEmpty() || password.isEmpty()) return;
+        if (vpsIp.isEmpty() || username.isEmpty()) return;
+        
+        // Validate authentication settings for test
+        if (authPasswordRadio.isChecked() && password.isEmpty()) {
+            Toast.makeText(this, R.string.error_required_field, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        
+        if (authKeyRadio.isChecked() && 
+            (sshPrivateKeyContent == null || sshPrivateKeyContent.isEmpty())) {
+            Toast.makeText(this, R.string.ssh_key_required, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        
+        if (authMultiFactorRadio.isChecked() && 
+            (password.isEmpty() || sshPrivateKeyContent == null || sshPrivateKeyContent.isEmpty())) {
+            Toast.makeText(this, R.string.both_auth_methods_required, Toast.LENGTH_SHORT).show();
+            return;
+        }
 
+        int tempPort = 22; // Default SSH port
+        try {
+            tempPort = Integer.parseInt(portStr);
+        } catch (NumberFormatException e) {
+            // tempPort remains 22
+        }
+        final int port = tempPort;
+
+        final SharedPreferences finalPreferences = preferences;
         new Thread(() -> {
             try {
-                JSch jsch = new JSch();
-                Session session = jsch.getSession(username, vpsIp, Integer.parseInt(port));
-                session.setPassword(password);
-                session.setConfig("StrictHostKeyChecking", "no");
+                Session session = createSshSession(vpsIp, username, password, port);
                 session.connect(5000);
                 session.disconnect();
-
                 runOnUiThread(() -> {
                     connectionStatusIndicator.setBackgroundResource(R.drawable.green_circle_background);
                     sshStatusText.setText(R.string.ssh_connection_success);
-                    sshStatusText.setTextColor(ContextCompat.getColor(this, R.color.green));
+                    sshStatusText.setTextColor(ContextCompat.getColor(SettingsActivity.this, R.color.green));
                     // Mark settings as saved on successful SSH test
-                    SharedPreferences.Editor editor = preferences.edit();
+                    SharedPreferences.Editor editor = finalPreferences.edit();
                     editor.putBoolean("vps_settings_saved", true);
                     editor.apply();
                 });
@@ -266,7 +389,7 @@ public class SettingsActivity extends BaseActivity {
                 runOnUiThread(() -> {
                     connectionStatusIndicator.setBackgroundResource(R.drawable.circle_background);
                     sshStatusText.setText(String.format("%s: %s", getString(R.string.ssh_connection_failed), errorMessage));
-                    sshStatusText.setTextColor(ContextCompat.getColor(this, R.color.red));
+                    sshStatusText.setTextColor(ContextCompat.getColor(SettingsActivity.this, R.color.red));
                 });
             }
         }).start();
@@ -279,5 +402,148 @@ public class SettingsActivity extends BaseActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void updateAuthMethodUi() {
+        if (authKeyRadio.isChecked() || authMultiFactorRadio.isChecked()) {
+            sshKeyContainer.setVisibility(View.VISIBLE);
+        } else {
+            sshKeyContainer.setVisibility(View.GONE);
+        }
+    }
+
+    private void loadAuthSettings() {
+        String authMethod = preferences.getString("auth_method", "password");
+        String sshKeyPath = preferences.getString("ssh_key_path", "");
+        String sshKeyContent = preferences.getString("ssh_key_content", "");
+
+        switch (authMethod) {
+            case "key":
+                authKeyRadio.setChecked(true);
+                break;
+            case "multi_factor":
+                authMultiFactorRadio.setChecked(true);
+                break;
+            default:
+                authPasswordRadio.setChecked(true);
+        }
+
+        if (!sshKeyPath.isEmpty()) {
+            sshPrivateKeyPath = sshKeyPath;
+            sshKeyInfoText.setText(getString(R.string.ssh_key_selected, 
+                sshKeyPath.substring(sshKeyPath.lastIndexOf("/") + 1)));
+        }
+        
+        if (!sshKeyContent.isEmpty()) {
+            sshPrivateKeyContent = sshKeyContent;
+        }
+
+        updateAuthMethodUi();
+    }
+
+    private void selectSshKeyFile() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("*/*");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        
+        try {
+            startActivityForResult(Intent.createChooser(intent, "Select SSH Key"), 
+                REQUEST_CODE_SELECT_SSH_KEY);
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(this, "No file manager available", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        
+        if (requestCode == REQUEST_CODE_SELECT_SSH_KEY && resultCode == RESULT_OK) {
+            if (data != null && data.getData() != null) {
+                Uri uri = data.getData();
+                try (InputStream inputStream = getContentResolver().openInputStream(uri)) {
+                    if (inputStream == null) {
+                        throw new IOException("Failed to open input stream");
+                    }
+                    int available = inputStream.available();
+                    if (available <= 0) {
+                        throw new IOException("Empty or invalid input stream");
+                    }
+                    byte[] buffer = new byte[available];
+                    int bytesRead = inputStream.read(buffer);
+                    if (bytesRead != available) {
+                        throw new IOException("Failed to read complete SSH key");
+                    }
+                    sshPrivateKeyContent = new String(buffer);
+                    
+                    // Päivitä SSH-avaimen tiedot ja näytä poistopainike
+                    updateSshKeyInfo();
+                } catch (Exception e) {
+                    Toast.makeText(this, R.string.ssh_key_load_error, Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
+    private void saveAuthSettings() {
+        SharedPreferences.Editor editor = preferences.edit();
+        
+        if (authPasswordRadio.isChecked()) {
+            editor.putString("vps_auth_method", "password");
+        } else if (authKeyRadio.isChecked()) {
+            editor.putString("vps_auth_method", "ssh_key");
+        } else if (authMultiFactorRadio.isChecked()) {
+            editor.putString("vps_auth_method", "multi_factor");
+        }
+        
+        if (sshPrivateKeyPath != null) {
+            editor.putString("ssh_key_path", sshPrivateKeyPath);
+        }
+        
+        if (sshPrivateKeyContent != null) {
+            editor.putString("vps_ssh_key_content", sshPrivateKeyContent);
+        }
+        
+        editor.apply();
+    }
+
+    private boolean validateAuthSettings() {
+        if (authKeyRadio.isChecked() && 
+            (sshPrivateKeyContent == null || sshPrivateKeyContent.isEmpty())) {
+            Toast.makeText(this, R.string.ssh_key_required, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        
+        if (authMultiFactorRadio.isChecked()) {
+            String password = vpsPasswordEdit.getText().toString();
+            if (password.isEmpty() || 
+                (sshPrivateKeyContent == null || sshPrivateKeyContent.isEmpty())) {
+                Toast.makeText(this, R.string.both_auth_methods_required, Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
+        
+        return true;
+    }
+
+    private Session createSshSession(String host, String username, String password, int port) 
+        throws Exception {
+        
+        JSch jsch = new JSch();
+        
+        if (authKeyRadio.isChecked() || authMultiFactorRadio.isChecked()) {
+            // Use SSH key (with optional passphrase)
+            jsch.addIdentity("ssh_key", sshPrivateKeyContent.getBytes(), null, null);
+        }
+        
+        Session session = jsch.getSession(username, host, port);
+        
+        if (authPasswordRadio.isChecked() || authMultiFactorRadio.isChecked()) {
+            // Use password (for password-only or multi-factor)
+            session.setPassword(password);
+        }
+        
+        session.setConfig("StrictHostKeyChecking", "no");
+        return session;
     }
 }

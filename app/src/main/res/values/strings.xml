@@ -92,4 +92,18 @@
     <string name="vps_success">VPS Success</string>
     <string name="foreground_service_justification">Synchronizes SMS data with a user-defined VPS endpoint for secure backup and sync</string>
 
+    <!-- SSH Key Authentication -->
+    <string name="auth_method">Authentication Method</string>
+    <string name="auth_password">Password</string>
+    <string name="auth_ssh_key">SSH Key</string>
+    <string name="auth_multi_factor">Multi-Factor (Password + Key)</string>
+    <string name="select_ssh_key">Select SSH Key</string>
+    <string name="no_ssh_key_selected">No SSH key selected</string>
+    <string name="ssh_key_selected">SSH key selected: %s</string>
+    <string name="ssh_key_load_error">Failed to load SSH key</string>
+    <string name="ssh_key_required">SSH key is required</string>
+    <string name="both_auth_methods_required">Both password and SSH key are required</string>
+    <string name="ssh_key_cleared">SSH key cleared</string>
+    <string name="clear_ssh_key">Clear SSH Key</string>
+
 </resources>
